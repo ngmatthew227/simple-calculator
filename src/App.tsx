@@ -26,7 +26,7 @@ function App() {
     const isMobile = window.innerWidth < 600;
     if (isMobile) {
       const metaViewport = document.querySelector('meta[name="viewport"]');
-      metaViewport?.setAttribute("content", "width=600");
+      metaViewport?.setAttribute("content", "width=600, initial-scale=1");
     }
     const wholePage = document.querySelector(".MuiContainer-root") as HTMLElement;
     domtoimage
