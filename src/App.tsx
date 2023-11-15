@@ -33,6 +33,7 @@ function App() {
       .toPng(wholePage, {
         width: 600,
         height: 1800,
+        bgcolor: "white",
       })
       .then(async function (dataUrl) {
         try {
