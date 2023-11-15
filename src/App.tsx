@@ -32,9 +32,6 @@ function App() {
     domtoimage
       .toPng(wholePage)
       .then(async function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        document.body.appendChild(img);
         try {
           if (navigator.share) {
             const blob = await (await fetch(dataUrl)).blob();
