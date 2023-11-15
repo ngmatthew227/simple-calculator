@@ -7,7 +7,7 @@ const columns: GridColDef[] = [
   { field: "octopusIncome", sortable: false, filterable: false, headerName: "八達通", maxWidth: 100, editable: true, type: "number" },
   { field: "alipayIncome", sortable: false, filterable: false, headerName: "支付寶", maxWidth: 100, editable: true, type: "number" },
   { field: "wechatIncome", sortable: false, filterable: false, headerName: "微信", maxWidth: 100, editable: true, type: "number" },
-  { field: "totalIncome", sortable: false, filterable: false, headerName: "總收入", maxWidth: 150 , editable: false, type: "number" },
+  { field: "totalIncome", sortable: false, filterable: false, headerName: "總收入", maxWidth: 150, editable: false, type: "number" },
 ];
 
 interface IncomeTableProps {
