@@ -1,0 +1,47 @@
+kind: pipeline
+type: docker
+name: build
+steps:
+  - name: build-push
+    image: plugins/docker
+    settings:
+      auto_tag: true
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      repo: ngmatthew227/simple-calculator
+      dockerfile: Dockerfile
+  - name: deploy
+    image: appleboy/drone-ssh
+    environment:
+      REGISTRY_USERNAME:
+        from_secret: REGISTRY_USERNAME
+      REGISTRY_PASSWORD:
+        from_secret: REGISTRY_PASSWORD
+    settings:
+      host:
+        from_secret: VPS_IP
+      username:
+        from_secret: VPS_USERNAME
+      password:
+        from_secret: VPS_PASSWORD
+      port: 22
+      command_timeout: 2m
+      envs: [REGISTRY_USERNAME, REGISTRY_PASSWORD]
+      script:
+        - sudo docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD
+        - sudo docker pull ngmatthew227/simple-calculator
+        - sudo docker stop simple-calculator && sudo docker rm simple-calculator
+        - sudo docker run --network nginx-manager_default --name simple-calculator -d ngmatthew227/simple-calculator
+        - echo "Deployed"
+    when:
+      status:
+        - success
+
+image_pull_secrets:
+  - REGISTRY_TOKEN
+
+trigger:
+  branch:
+    - main
