@@ -23,6 +23,11 @@ function App() {
   const { incomes, initForMonth } = useIncomeStore();
 
   const exportToPng = () => {
+    const isMobile = window.innerWidth < 600;
+    if (isMobile) {
+      const metaViewport = document.querySelector('meta[name="viewport"]');
+      metaViewport?.setAttribute("content", "width=600, initial-scale=1");
+    }
     const wholePage = document.querySelector(".MuiContainer-root") as HTMLElement;
     domtoimage
       .toPng(wholePage, {
@@ -31,6 +36,9 @@ function App() {
       })
       .then(async function (dataUrl) {
         try {
+          var img = new Image();
+          img.src = dataUrl;
+          document.body.appendChild(img);
           if (navigator.share) {
             const blob = await (await fetch(dataUrl)).blob();
             const fileName = `電子收入表_${year}_${month}.png`;
@@ -43,6 +51,12 @@ function App() {
           }
         } catch (err) {
           console.error("Error: " + err);
+        }
+      })
+      .then(() => {
+        if (isMobile) {
+          const metaViewport = document.querySelector('meta[name="viewport"]');
+          metaViewport?.setAttribute("content", "width=device-width, initial-scale=1");
         }
       })
       .catch(function (error) {
