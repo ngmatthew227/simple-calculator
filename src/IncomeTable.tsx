@@ -16,7 +16,7 @@ interface IncomeTableProps {
 }
 
 export default function IncomeTable({ year, month }: IncomeTableProps) {
-  const { incomes, updateIncome, deleteIncome } = useIncomeStore();
+  const { incomes, updateIncome } = useIncomeStore();
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -31,7 +31,7 @@ export default function IncomeTable({ year, month }: IncomeTableProps) {
               id: income.date,
             }))}
           columns={columns}
-          processRowUpdate={(updatedRow, originalRow) => {
+          processRowUpdate={(updatedRow) => {
             console.log(updatedRow);
             const updatedIncome = updatedRow as any;
             updatedIncome.totalIncome = updatedIncome.octopusIncome + updatedIncome.alipayIncome + updatedIncome.wechatIncome;
