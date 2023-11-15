@@ -37,9 +37,6 @@ function App() {
       })
       .then(async function (dataUrl) {
         try {
-          var img = new Image();
-          img.src = dataUrl;
-          document.body.appendChild(img);
           if (navigator.share) {
             const blob = await (await fetch(dataUrl)).blob();
             const fileName = `電子收入表_${year}_${month}.png`;
