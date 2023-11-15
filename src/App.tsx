@@ -37,10 +37,12 @@ function App() {
         document.body.appendChild(img);
         try {
           if (navigator.share) {
+            const blob = await (await fetch(dataUrl)).blob();
+            const file = new File([blob], "fileName.png", { type: blob.type });
             await navigator.share({
-              title: "收入表",
-              text: "收入表",
-              url: dataUrl,
+              title: "Hello",
+              text: "Check out this image!",
+              files: [file],
             });
           }
         } catch (err) {
