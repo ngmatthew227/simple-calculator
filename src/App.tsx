@@ -1,10 +1,10 @@
 import { Button, Container, FormControl, InputLabel, MenuItem, Paper, Select, Typography, styled } from "@mui/material";
+import domtoimage from "dom-to-image";
 import { useState } from "react";
 import "./App.css";
 import { MONTHS, YEARS } from "./Constants";
 import IncomeTable from "./IncomeTable";
 import { useIncomeStore } from "./store/IncomeStore";
-import domtoimage from "dom-to-image";
 
 const Header = styled("header")`
   min-height: 80px;

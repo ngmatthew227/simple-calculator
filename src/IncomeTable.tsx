@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper";
-import { DataGrid, GridRowEditStopParams, GridRowEditStopReasons, GridColDef, MuiEvent } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useIncomeStore } from "./store/IncomeStore";
 
 const columns: GridColDef[] = [
