@@ -23,23 +23,21 @@ function App() {
   const { incomes, initForMonth } = useIncomeStore();
 
   const exportToPng = () => {
-    const isMobile = window.innerWidth < 600;
-    if (isMobile) {
-      const metaViewport = document.querySelector('meta[name="viewport"]');
-      // set height to 1800
-      metaViewport?.setAttribute("content", "width=600, height=1800, initial-scale=1");
-    }
     const wholePage = document.querySelector(".MuiContainer-root") as HTMLElement;
     domtoimage
-      .toPng(wholePage)
+      .toPng(wholePage, {
+        width: 600,
+        height: 1800,
+      })
       .then(async function (dataUrl) {
         try {
           if (navigator.share) {
             const blob = await (await fetch(dataUrl)).blob();
-            const file = new File([blob], "fileName.png", { type: blob.type });
+            const fileName = `電子收入表_${year}_${month}.png`;
+            const file = new File([blob], fileName, { type: blob.type });
             await navigator.share({
-              title: "Hello",
-              text: "Check out this image!",
+              title: "電子收入表",
+              text: `電子收入表_${year}_${month}`,
               files: [file],
             });
           }
@@ -47,13 +45,6 @@ function App() {
           console.error("Error: " + err);
         }
       })
-      .then(() => {
-        if (isMobile) {
-          const metaViewport = document.querySelector('meta[name="viewport"]');
-          metaViewport?.setAttribute("content", "width=device-width, initial-scale=1");
-        }
-      })
-
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
       });
