@@ -25,7 +25,6 @@ function App() {
   const exportToPng = () => {
     const isMobile = window.innerWidth < 600;
     if (isMobile) {
-      
       const metaViewport = document.querySelector('meta[name="viewport"]');
       metaViewport?.setAttribute("content", "width=600, initial-scale=1");
     }
