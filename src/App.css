@@ -5,4 +5,6 @@
   text-align: left;
   /* background-color: #d9faffcc; */
   background-image: linear-gradient(#a9effacc, #d9faffcc);
+  display: flex;
+  max-height: 100vh;
 }

@@ -7,7 +7,7 @@ import IncomeTable from "./IncomeTable";
 import { useIncomeStore } from "./store/IncomeStore";
 
 const Header = styled("header")`
-  min-height: 80px;
+  height: 60px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -71,6 +71,7 @@ function App() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
+            size="small"
             value={year}
             label="年份"
             onChange={(event) => {
@@ -95,6 +96,7 @@ function App() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
+            size="small"
             value={month}
             label="月份"
             onChange={(event) => {
@@ -113,7 +115,9 @@ function App() {
           </Select>
         </FormControl>
       </Header>
-      <IncomeTable year={year} month={month} />
+      <div style={{ flex: 1 }}>
+        <IncomeTable year={year} month={month} />
+      </div>
       <div style={{ display: "flex" }}>
         <Paper style={{ marginTop: "10px", height: "50px", textAlign: "left", display: "flex", alignItems: "center", paddingInline: "10px", flex: "1" }} elevation={3}>
           <Typography style={{ fontWeight: "bold" }}>總計:</Typography>
