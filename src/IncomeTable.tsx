@@ -63,7 +63,7 @@ export default function IncomeTable({ year, month }: IncomeTableProps) {
           divs[i].remove();
         }
       }
-    }, 5000);
+    }, 1000);
   }, []);
 
   return (
