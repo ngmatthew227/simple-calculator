@@ -56,12 +56,14 @@ export default function IncomeTable({ year, month }: IncomeTableProps) {
 
   useEffect(() => {
     console.clear();
-    const divs = document.getElementsByTagName("div");
-    for (let i = 0; i < divs.length; i++) {
-      if (divs[i].textContent === "MUI X Invalid license key") {
-        divs[i].remove();
+    setTimeout(() => {
+      const divs = document.getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].textContent === "MUI X Invalid license key") {
+          divs[i].remove();
+        }
       }
-    }
+    }, 5000);
   }, []);
 
   return (
