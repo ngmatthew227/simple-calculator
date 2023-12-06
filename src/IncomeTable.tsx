@@ -1,8 +1,8 @@
 import Paper from "@mui/material/Paper";
-import { DataGridPro, GridColDef, LicenseInfo } from "@mui/x-data-grid-pro";
-import { useIncomeStore } from "./store/IncomeStore";
+import { darken, lighten, styled } from "@mui/material/styles";
+import { DataGridPro, GridColDef, GridRowParams, LicenseInfo } from "@mui/x-data-grid-pro";
 import { useEffect } from "react";
-import { styled, darken, lighten } from "@mui/material/styles";
+import { useIncomeStore } from "./store/IncomeStore";
 
 const columns: GridColDef[] = [
   {
@@ -54,6 +54,13 @@ export default function IncomeTable({ year, month }: IncomeTableProps) {
   LicenseInfo.setLicenseKey("x0jTPl0USVkVZV0SsMjM1kDNyADM5cjM2ETPZJVSQhVRsIDN0YTM6IVREJ1T0b9586ef25c9853decfa7709eee27a1e");
   const { incomes, updateIncome } = useIncomeStore();
 
+  const parseInteger = (value: string | number | null | undefined) => {
+    if (value === null || value === undefined || value === "") {
+      return 0;
+    }
+    return parseInt(value.toString());
+  };
+
   useEffect(() => {
     console.clear();
     setTimeout(() => {
@@ -79,11 +86,21 @@ export default function IncomeTable({ year, month }: IncomeTableProps) {
           }))}
         columns={columns}
         processRowUpdate={(updatedRow) => {
-          console.log(updatedRow);
           const updatedIncome = updatedRow as any;
-          updatedIncome.totalIncome = updatedIncome.octopusIncome + updatedIncome.alipayIncome + updatedIncome.wechatIncome;
+          updatedIncome.totalIncome = parseInteger(updatedIncome.octopusIncome) + parseInteger(updatedIncome.alipayIncome) + parseInteger(updatedIncome.wechatIncome);
           updateIncome(updatedIncome);
           return updatedRow;
+        }}
+        onRowEditStart={(params: GridRowParams) => {
+          if (params.row.octopusIncome === 0) {
+            params.row.octopusIncome = null;
+          }
+          if (params.row.alipayIncome === 0) {
+            params.row.alipayIncome = null;
+          }
+          if (params.row.wechatIncome === 0) {
+            params.row.wechatIncome = null;
+          }
         }}
         onProcessRowUpdateError={(error: Error) => {
           console.log(error);

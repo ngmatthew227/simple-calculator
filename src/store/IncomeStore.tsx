@@ -6,12 +6,12 @@ export type DailyIncome = {
   id: string;
   date: string;
   month: string;
-  octopusIncome: number;
-  alipayIncome: number;
-  wechatIncome: number;
-  otherIncome: number;
+  octopusIncome: number | null;
+  alipayIncome: number | null;
+  wechatIncome: number | null;
+  otherIncome: number | null;
   otherIncomeRmk: string;
-  totalIncome: number;
+  totalIncome: number | null;
 };
 
 // the type of the income store
@@ -102,10 +102,10 @@ export const useIncomeStore = create<IncomeStore, [["zustand/persist", IncomeSto
             id: `${year}-${month}-${i.toString().padStart(2, "0")}`,
             date: `${year}-${month}-${i.toString().padStart(2, "0")}`,
             month: month,
-            octopusIncome: 0,
-            alipayIncome: 0,
-            wechatIncome: 0,
-            otherIncome: 0,
+            octopusIncome: null,
+            alipayIncome: null,
+            wechatIncome: null,
+            otherIncome: null,
             otherIncomeRmk: "",
             totalIncome: 0,
           });

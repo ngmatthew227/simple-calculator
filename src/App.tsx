@@ -124,8 +124,8 @@ function App() {
           <Typography style={{ fontWeight: "bold", flex: "1", textAlign: "right" }}>
             {incomes
               .filter((income) => income.date.startsWith(`${year}-${month}`))
-              .reduce((acc, cur) => acc + cur.totalIncome, 0)
-              .toLocaleString()}
+              .reduce((acc, cur) => acc + (cur?.totalIncome ?? 0), 0)
+              ?.toLocaleString()}
           </Typography>
         </Paper>
         <Button variant="contained" style={{ marginTop: "10px", marginLeft: "10px" }} onClick={exportToPng}>
